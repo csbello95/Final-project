@@ -2,6 +2,7 @@ import mongoose  from "mongoose";
 import db from "../db.js";
 import {usersRoutes} from "../routes/index.js";
 import { Users } from "../models/index.js";
+import bcrypt from "bcrypt";
 
 
  export const getAll = (req, res) => {
@@ -15,11 +16,30 @@ import { Users } from "../models/index.js";
    });
  };
 
- export const getOne = (req, res) => {
+ 
+ export async function login(req, res) {
+  db.connect();
+  const { email, password } = req.body;
+  const user = await Users.findOne({ email });
+  if (user) {
+    const frontInput = email + password;
+    const checkLogin = await bcrypt.compare(frontInput, user.passCrypt);
+    if (checkLogin) {
+      res.send({ message: "login sucess", auth:true });
+    } else {
+      res.send({ message: "Wrong Email or password", auth:false });
+    }
+  } else {
+    res.send({ message:"wrong email or password", auth:false});
+  }
+}
+
+
+ export const getOneUser = (req, res) => {
   //connect to DB
   db.connect();
-  const { id } = req.params;
-  Users.findById(id, (err, data) => {
+  const { email } = req.params;
+  Users.findOne({email}, (err, data) => {
     //mongoose.connection.close();
     if (err) res.sendStatus(404);
     res.status(200).json(data);
@@ -28,12 +48,17 @@ import { Users } from "../models/index.js";
 
 export const create = (req, res) => {
   db.connect();
-  if (req.body) {
-    Users.create(req.body, (err,data)=>{
-      if (err) res.status(500).send(err);
-    res.status(201).json(data);
-    })
-  }
+  const { email, password } = req.body;
+  const user = email + password;
+  bcrypt.hash(user, 10).then(function (hash) {
+    req.body.passCrypt = hash;
+    if (req.body) {
+      Users.create(req.body, (err, data) => {
+        if (err) res.status(500).send(err);
+        res.status(201).json(data);
+      });
+    }
+  });
 };
 
 export const update = (req, res) => {

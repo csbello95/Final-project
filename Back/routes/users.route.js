@@ -1,6 +1,7 @@
 const usersRoutes = {
     GET: "/users",
-    GETONE:"/users/:id",
+    LOGIN:"/users/login",
+    GETONE:"/users/:email",
     CREATE: "/users/create",
     UPDATE: "/users/update/:id",
     DELETE: "/users/delete/:id",
