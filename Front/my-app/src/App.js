@@ -2,23 +2,26 @@ import React, {useState} from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import Login from "./Components/Login";
 import CarList from "./Components/CarList";
+import Home from "./Components/Home/Home";
 import './App.scss';
 
 // import router from "../../../Back/routes/cars.route";
 
 function App() {
-  const [auth, setAuth ] = useState(false);
-  const [user, setUser] = useState("");
+  const authorized = localStorage.getItem('authorized');
+  const [auth, setAuth ] = useState(!!authorized);
+  const user = authorized || "";
 
   return (
     <Router>
       <Routes>
+        <Route exact path="/home" element={<Home/>}/>
         <Route
           exact
           path="/"
-          element={<Login auth={auth} setUser={setUser} setAuth={setAuth} />}
+          element={<Login auth={auth} setAuth={setAuth} />}
         />
-        <Route exact path="/admin" element={<CarList authorized={auth} user={user} />} />
+        <Route exact path="/admin" element={<CarList authorized={auth} user={user} setAuth={setAuth} />} />
       </Routes>
     </Router>
   );

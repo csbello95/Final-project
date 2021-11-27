@@ -1,95 +1,100 @@
-import React from 'react';
-import { Button, Modal, Form, Row,Col } from "react-bootstrap";
-import { addCar } from '../../api/adminCar';
-import './NewCar.scss'
+import React from 'react'
+import { Button, Modal, Form, Row, Col } from "react-bootstrap";
+import { updateCar } from "../../api/adminCar";
 
-const NewCar = ({show, setShow, setCars}) => {
-    const handleClose = () => setShow(false);
+const EditCar = ({ editModal, setEditModal, setCars, car }) => {
+    const { showModal, carId, pos } = editModal;
 
-    const handleAddCar = async (event) => {
+    const handleClose = () => {
+        setEditModal({
+            showModal: false,
+            carId: undefined,
+            pos: undefined,
+        });
+    }
+
+    const handleEditCar = async (event) => {
         event.preventDefault();
-        console.log(event.target[4].files[0]);
-        const nameImage = `${event.target[0].value}.${event.target[4].files[0].type.split("/")[1]}`
-        
-        const newCar = {
+        const updatedCar = {
             car_brand: event.target[0].value,
             car_model: event.target[1].value,
             number_doors: parseInt(event.target[2].value),
             number_bags: parseInt(event.target[3].value),
-            file: event.target[4].files[0],
-            image: nameImage,
+            image: event.target[4].value,
             scale: event.target[5].value,
             rental_value: parseInt(event.target[6].value),
-        }
-        
-        
-        const car = await addCar(newCar);        
-        setCars(prevState =>[...prevState,car]);
+        };
+        const finalCar = await updateCar(carId, updatedCar);
+        finalCar._id = carId;
+        setCars((prevState) => {
+            const newCarList = [...prevState];
+            newCarList[pos] = finalCar;
+            return newCarList;
+        });
         handleClose();
-    }
+    };
+
     return (
         <>
-            <Modal show={show} onHide={handleClose} size='xl' centered>
+            <Modal show={showModal} onHide={handleClose} size='lg' centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Nuevo Carro</Modal.Title>
+                    <Modal.Title>Editar Carro</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleAddCar}>
+                    <Form onSubmit={handleEditCar}>
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={6} size="lg">Marca</Form.Label>
-                            <Col sm={6}> 
-                            <Form.Control type="text" />
+                            <Col sm={6}>
+                                <Form.Control type="text" defaultValue={car?.car_brand} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Modelo</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="text" />
+                                <Form.Control type="text" defaultValue={car?.car_model} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Número Puertas</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="number" />
+                                <Form.Control type="number" defaultValue={car?.number_doors} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6} >Número Maletas</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="number" />
+                                <Form.Control type="number" defaultValue={car?.number_bags} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Imagen</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="file" />
+                                <Form.Control type="text" defaultValue={car?.image} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Gama</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="text" />
+                                <Form.Control type="text" defaultValue={car?.scale} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Valor alquiler</Form.Label>
                             <Col sm={6}>
-                            <Form.Control type="number" />
+                                <Form.Control type="number" defaultValue={car?.rental_value} />
                             </Col>
                         </Form.Group>
 
                         <Modal.Footer>
-                    <Button variant="primary" type="submit">
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-                </Form>
+                            <Button type="submit">
+                                Editar
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
                 </Modal.Body>
-                
             </Modal>
         </>
     )
 }
 
-export default NewCar;
-
+export default EditCar;

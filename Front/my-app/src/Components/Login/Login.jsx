@@ -3,14 +3,14 @@ import { checkLogin } from "../../api/adminUsers";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({auth, setAuth,setUser}) => {
+const Login = ({auth, setAuth}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (auth) {
       navigate("/admin");
     }
-  }, [auth, navigate])
+  }, [auth,navigate])
 
 
   const handleLogin = async (event) => {
@@ -21,7 +21,7 @@ const Login = ({auth, setAuth,setUser}) => {
     
     const newAuth = await checkLogin(login);
     if (newAuth) {
-      setUser(email);
+      localStorage.setItem('authorized', email);
     }
     setAuth(newAuth);
   };
@@ -35,8 +35,8 @@ const Login = ({auth, setAuth,setUser}) => {
         <h2>LA MEJOR RED DE ALQUILER DE AUTOS</h2>
       </section>
       <form className="login-form" onSubmit={handleLogin}>
-        <input type="text" placeholder="Usuario" />
-        <input type="password" placeholder="Clave" />
+        <input type="text" placeholder="Usuario" autoComplete="email"/>
+        <input type="password" placeholder="Clave" autoComplete="password"/>
         <button type="submit">ingresar</button>
       </form>
     </div>

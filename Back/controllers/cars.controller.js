@@ -7,7 +7,7 @@ export const getAll = (req, res) => {
     db.connect();
     //get all users
     Cars.find((err, data) => {
-      console.log("find...", data);
+      //console.log("find...", data);
       if (data.length === 0) res.status(204).send();
       res.status(200).send(data);
     });
@@ -26,10 +26,12 @@ export const getAll = (req, res) => {
 
   export const create = (req, res) => {
     db.connect();
+    console.log('*************************',req.body)
     if (req.body) {
       Cars.create(req.body, (err,data)=>{
         if (err) res.status(500).send(err);
-      res.status(201).json(data);
+        res.status(201).json(data);
+      
       })
     }
   };
@@ -40,9 +42,10 @@ export const getAll = (req, res) => {
     db.connect();
     Cars.findById(id, (err, data) => {
       if (err) res.status(500).send(err);
+      res.status(200).send(newCar);
       Cars.updateOne(data, newCar, (err, value) => {
         if (err) res.status(500).send(err);
-        res.status(200).send(value);
+        //res.status(200).send(value);
       });
     });
   };

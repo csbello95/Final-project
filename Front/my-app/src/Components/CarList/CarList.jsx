@@ -4,14 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../Constants";
 import NewCar from "../NewCar";
 import DeleteCar from "../DeleteCar";
+import EditCar from "../EditCar";
 import "./Carlist.scss";
 
 
 
-const CarList = ({authorized, user }) => {
+const CarList = ({authorized, user,setAuth }) => {
     const [cars, setCars] = useState([]);
-    const [showAdd, setShowAdd] = useState(false);
-    const [showDelete, setShowDelete] = useState([false,""]);
+    const [showAdd, setShow] = useState(false);
+    
+    const [deleteModal, setDeleteModal] = useState({
+        showModal: false,
+        carId: undefined,
+        pos: undefined,
+    });
+
+    const [editModal, setEditModal] = useState({
+        showModal: false,
+        carId: undefined,
+        pos: undefined,
+    });
+    
+
     const navigate = useNavigate();
     
       useEffect(() => {
@@ -29,20 +43,27 @@ const CarList = ({authorized, user }) => {
       }, [authorized,navigate]);
 
       const handleModalAdd = () => {
-        setShowAdd(true);
+        setShow(true);
       }
 
-    const handleModalDelete = (event) => {
-        const idCar = event.target.value;
-        setShowDelete([true, idCar]);
+    const handleModalDelete = (carId, pos) => {
+       setDeleteModal({showModal:true, carId,pos})
     }
 
-    
+    const handleModalEdit = (carId, pos) => {
+        setEditModal({showModal:true, carId,pos})
+     }
+    const logout = () => {
+        localStorage.removeItem('authorized');
+        setAuth(false);
+        navigate("/");
+    }
     return (
         <div className="card-list-container">
             <header className="car-list-header">
                 <h1>BUGGY & BUMPER, INC </h1>
                 <span>Usuario:{user}</span>
+                <button onClick={()=>{logout()}}>Salir</button>
             </header>
             <div className="list-car-title">
                 <span className="list-new">Lista de carros</span>
@@ -60,16 +81,17 @@ const CarList = ({authorized, user }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {cars?.map((item, i) => (
+                        {cars?.map(({_id, car_brand,number_doors,number_bags,image},i) => (
 
                             <tr key={i}>
-                                <td>{item._id}</td>
-                                <td>{item.car_brand}</td>
-                                <td>{item.number_doors}</td>
-                                <td>{item.number_bags}</td>
+                                <td>{_id}</td>
+                                <td>{car_brand}</td>
+                                <td>{number_doors}</td>
+                                <td>{number_bags}</td>
+                                <td><img src={`${process.env.REACT_APP_IMAGE}${image}`} alt="" /></td>
                                 <td>
-                                    <button value={item._id}>Editar</button>
-                                    <button value={item._id} onClick={handleModalDelete}>Eliminar</button>
+                                    <button onClick={()=>handleModalEdit(_id,i)} >Editar</button>
+                                    <button onClick={()=>handleModalDelete(_id,i)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))}
@@ -96,8 +118,9 @@ const CarList = ({authorized, user }) => {
                     </tbody>
                 </table>
             </section>
-            <NewCar show={showAdd} setShow={setShowAdd} setCars={setCars}/>
-            <DeleteCar show={showDelete} setShow={setShowDelete} setCars={setCars} />
+            <NewCar show={showAdd} setShow={setShow} setCars={setCars} />
+            <DeleteCar deleteModal={deleteModal} setDeleteModal={setDeleteModal} setCars={setCars} />
+            <EditCar editModal={editModal} setEditModal={setEditModal} setCars={setCars} car={cars[editModal.pos]}/>
             </div>
     )
 }

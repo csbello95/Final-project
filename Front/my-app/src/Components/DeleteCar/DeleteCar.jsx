@@ -5,21 +5,27 @@ import "./DeleteCar.scss";
 
 
 
-const DeleteCar = ({ show, setShow, setCars }) => {
-    const handleClose = () => setShow([false,""]);
-
-    const handleDeleteCar = async (event) => {
-        event.preventDefault();
-        const idCar = show[1];
-        const deletedCar = await deleteCar(idCar);
-        console.log(deletedCar);
+const DeleteCar = ({ deleteModal, setDeleteModal, setCars }) => {
+    const {showModal, carId, pos} = deleteModal;
     
-        setCars((prevState) => {
-            const newElements = [...prevState];
-            newElements.splice(deleteCar, 1);
-            return newElements;
-          });
+    const handleClose = () => {
+        setDeleteModal({
+            showModal:false,
+            carId:undefined,
+            pos:undefined,
+        });
+    };
+
+    const handleDeleteCar = async () => {
+        const deletedCar = await deleteCar(carId);
         
+        if (deletedCar) {
+            setCars((prevState) => {
+                const newCarList = [...prevState];
+                newCarList.splice(pos, 1);
+                return newCarList;
+              });    
+        }
         handleClose();
     };
 
@@ -27,12 +33,12 @@ const DeleteCar = ({ show, setShow, setCars }) => {
 
     return (
         <>
-            <Modal show={show[0]} onHide={handleClose} size="lg" centered>
+            <Modal show={showModal} onHide={handleClose} size="lg" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Eliminar Carro</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
-                    <p>Esta Seguro que desea eliminar el carro ID {show[1]}?</p>
+                    <p>Esta Seguro que desea eliminar el carro ID {carId}?</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleDeleteCar}>Eliminar</Button>
