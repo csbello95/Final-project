@@ -8,7 +8,7 @@ export const getAll = (req, res) => {
     //get all users
     Cars.find((err, data) => {
       //console.log("find...", data);
-      if (data.length === 0) res.status(204).send();
+      if (data.length === 0) res.status(204);
       res.status(200).send(data);
     });
   };

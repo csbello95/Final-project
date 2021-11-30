@@ -7,7 +7,7 @@ export const getAllRentals = (req, res) => {
     db.connect();
     //get all rentals
     Rentals.find((err, data) => {
-      if (data.length === 0) res.status(204).send();
+      if (data.length === 0) res.status(204);
       res.status(200).send(data);
     });
   };
