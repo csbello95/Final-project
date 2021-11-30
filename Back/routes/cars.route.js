@@ -14,12 +14,11 @@ function dirname(meta) {
 //configure multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log('multer');
     cb(null, path.join(__dirname, "../public"));
   },
   filename: function (req, file, cb) {
     console.log("Filename", req.body);
-    cb(null, `${req.body.car_brand}.${file.mimetype.split("/")[1]}`);
+    cb(null, `${req.body.car_model}.${file.mimetype.split("/")[1]}`);
   },
 });
 const upload = multer({ storage: storage });
@@ -39,7 +38,7 @@ const carsRoutes = {
 router.get(carsRoutes.GET, carctr.getAll);
 router.get(carsRoutes.GETONE,carctr.getOne);
 router.post(carsRoutes.CREATE,upload.single("file"),carctr.create);
-router.put(carsRoutes.UPDATE, carctr.update); 
+router.put(carsRoutes.UPDATE,upload.single("file"), carctr.update); 
 router.delete(carsRoutes.DELETE,carctr.deleteOne);
 
 

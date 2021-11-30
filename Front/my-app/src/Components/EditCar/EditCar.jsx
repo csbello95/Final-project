@@ -15,14 +15,23 @@ const EditCar = ({ editModal, setEditModal, setCars, car }) => {
 
     const handleEditCar = async (event) => {
         event.preventDefault();
+        const [car_brand, car_model, number_doors, number_bags, image, scale, rental_value] = event.target;
+        let imageName = car.image;
+        const file = image.files[0];
+        
+        if (file) {
+            imageName = `${process.env.REACT_APP_IMAGE}${car_model.value}.${file.type.split("/")[1]}`;
+        }
+
         const updatedCar = {
-            car_brand: event.target[0].value,
-            car_model: event.target[1].value,
-            number_doors: parseInt(event.target[2].value),
-            number_bags: parseInt(event.target[3].value),
-            image: event.target[4].value,
-            scale: event.target[5].value,
-            rental_value: parseInt(event.target[6].value),
+            car_brand: car_brand.value,
+            car_model: car_model.value,
+            number_doors: parseInt(number_doors.value)|| 0,
+            number_bags: parseInt(number_bags.value)||0,
+            file: file || null,
+            image: imageName,
+            scale: scale.value,
+            rental_value: parseInt(rental_value.value)||0,
         };
         const finalCar = await updateCar(carId, updatedCar);
         finalCar._id = carId;
@@ -69,7 +78,7 @@ const EditCar = ({ editModal, setEditModal, setCars, car }) => {
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
                             <Form.Label column sm={6}>Imagen</Form.Label>
                             <Col sm={6}>
-                                <Form.Control type="text" defaultValue={car?.image} />
+                                <Form.Control type="file" />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">

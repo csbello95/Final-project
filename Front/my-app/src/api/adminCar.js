@@ -10,7 +10,9 @@ export const addCar = async (newCar) => {
     form.append("scale",newCar.scale);
     form.append("rental_value",newCar.rental_value);
     form.append("image", newCar.image);
-    form.append("file", newCar.file);
+    if (newCar.file) {
+        form.append("file", newCar.file);    
+    }
     //const body = {...newCar,}
     const endpoint = `/cars/create`;
     const response = await axios.post(`${API_URL}${endpoint}`,form);
@@ -33,8 +35,19 @@ export const deleteCar = async (idCar) => {
 }
 
 export const updateCar = async (idCar,updatedCar)=>{
+    const form = new FormData();
+    form.append("car_brand",updatedCar.car_brand);
+    form.append("car_model",updatedCar.car_model);
+    form.append("number_doors",updatedCar.number_doors);
+    form.append("number_bags",updatedCar.number_bags);
+    form.append("scale",updatedCar.scale);
+    form.append("rental_value",updatedCar.rental_value);
+    form.append("image",updatedCar.image);
+    if (updatedCar.file) {
+        form.append("file",updatedCar.file);    
+    }
     const endpoint =`/cars/update/${idCar}`;
-    const response = await axios.put(`${API_URL}${endpoint}`,updatedCar);
+    const response = await axios.put(`${API_URL}${endpoint}`,form);
     if (response) {
         return response.data;
     }else{

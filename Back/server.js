@@ -1,6 +1,6 @@
 import express from "express";
-import { usersRoutes,carsRoutes } from "./routes/index.js";
-import { userctr, carctr } from "./controllers/index.js";
+import { usersRoutes,carsRoutes,rentalRoutes} from "./routes/index.js";
+import { userctr } from "./controllers/index.js";
 import cors from "cors";
 
 
@@ -27,7 +27,7 @@ app.post(usersRoutes.CREATE, userctr.create);
 app.put(usersRoutes.UPDATE, userctr.update); 
 app.delete(usersRoutes.DELETE,userctr.deleteOne);
 
-app.use("/",carsRoutes);
+app.use("/",carsRoutes,rentalRoutes);
 
 // function dirname(meta) {
 //   return fileURLToPath(meta.url);

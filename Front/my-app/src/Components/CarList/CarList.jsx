@@ -62,8 +62,10 @@ const CarList = ({authorized, user,setAuth }) => {
         <div className="card-list-container">
             <header className="car-list-header">
                 <h1>BUGGY & BUMPER, INC </h1>
+                <div className="user-info">
                 <span>Usuario:{user}</span>
                 <button onClick={()=>{logout()}}>Salir</button>
+                </div>
             </header>
             <div className="list-car-title">
                 <span className="list-new">Lista de carros</span>
@@ -88,7 +90,6 @@ const CarList = ({authorized, user,setAuth }) => {
                                 <td>{car_brand}</td>
                                 <td>{number_doors}</td>
                                 <td>{number_bags}</td>
-                                <td><img src={`${process.env.REACT_APP_IMAGE}${image}`} alt="" /></td>
                                 <td>
                                     <button onClick={()=>handleModalEdit(_id,i)} >Editar</button>
                                     <button onClick={()=>handleModalDelete(_id,i)}>Eliminar</button>

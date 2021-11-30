@@ -26,7 +26,6 @@ export const getAll = (req, res) => {
 
   export const create = (req, res) => {
     db.connect();
-    console.log('*************************',req.body)
     if (req.body) {
       Cars.create(req.body, (err,data)=>{
         if (err) res.status(500).send(err);

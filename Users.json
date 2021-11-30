@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "618705e785cde0a909e4b0f7"
+  },
+  "email": "cristian.bello6@gmail.com",
+  "phone_number": 3204561523,
+  "password": "dontlook@",
+  "admin": true
+},{
+  "_id": {
+    "$oid": "6189b9acfb222fb07ea8e034"
+  },
+  "email": "daniel.duque@gmail.com",
+  "phone_number": "3142834083",
+  "password": "helloworld6",
+  "admin": true
+},{
+  "_id": {
+    "$oid": "618efe528f4e930b20773dd6"
+  },
+  "email": "fabian.duque@gmail.com",
+  "phone_number": 3142834083,
+  "password": "securepass6",
+  "admin": true,
+  "passCrypt": "$2b$10$JDVc.dNtIht5XuWEn6Ev..LvV5cgHJiasMs7aL/AyqbLmUVh10CCK",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6196f34579e4f66b480032b3"
+  },
+  "email": "pepito.perez@gmail.com",
+  "phone_number": 3142834083,
+  "password": "makeitreal69",
+  "admin": true,
+  "passCrypt": "$2b$10$Zm4XiLBz6EdJMEPb4fDyP.DieU4ndZSP9RGfZrKVip/DI.IVLqrP2",
+  "__v": 0
+}]

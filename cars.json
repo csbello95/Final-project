@@ -1,0 +1,109 @@
+[{
+  "_id": {
+    "$oid": "6193f0f12502f064f0c66016"
+  },
+  "car_brand": "Porsche",
+  "car_model": "Taycan",
+  "number_doors": 5,
+  "number_bags": 12,
+  "image": "http://localhost:3004/Taycan.jpeg",
+  "scale": "High",
+  "rental_value": 3500000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619afb45986121e19300f72c"
+  },
+  "car_brand": "Ford ",
+  "car_model": "Raptor F-150",
+  "number_doors": 5,
+  "number_bags": 10,
+  "image": "http://localhost:3004/Raptor F-150.jpeg",
+  "scale": "Alta",
+  "rental_value": 2500000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619afc69986121e1930105fd"
+  },
+  "car_brand": "Mazda",
+  "car_model": "CX30",
+  "number_doors": 5,
+  "number_bags": 5,
+  "image": "http://localhost:3004/CX30.jpeg",
+  "scale": "Alta",
+  "rental_value": 2500000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619ef4827af526ea4070db05"
+  },
+  "car_brand": "Toyota",
+  "car_model": "Corolla SEG Hibrido",
+  "number_doors": 5,
+  "number_bags": 4,
+  "image": "http://localhost:3004/Corolla SEG Hibrido.jpeg",
+  "scale": "Media",
+  "rental_value": 1750000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0145e54769a0508e0d0aa"
+  },
+  "car_brand": "Tesla",
+  "car_model": "S model",
+  "number_doors": 5,
+  "number_bags": 4,
+  "image": "http://localhost:3004/S model.jpeg",
+  "scale": "Alta",
+  "rental_value": 3750000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a29ef95d3b9e331e8a140c"
+  },
+  "car_brand": "BMW",
+  "car_model": "M4",
+  "number_doors": 5,
+  "number_bags": 6,
+  "image": "http://localhost:3004/M4.jpeg",
+  "scale": "Alta",
+  "rental_value": 3750000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a29f905d3b9e331e8a140e"
+  },
+  "car_brand": "Lamborghini",
+  "car_model": "Huracan",
+  "number_doors": 4,
+  "number_bags": 2,
+  "image": "http://localhost:3004/Huracan.jpeg",
+  "scale": "Alta",
+  "rental_value": 7000000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a2a0205d3b9e331e8a1410"
+  },
+  "car_brand": "Jaguar",
+  "car_model": "I-PACE",
+  "number_doors": 5,
+  "number_bags": 12,
+  "image": "http://localhost:3004/I-PACE.jpeg",
+  "scale": "Alta",
+  "rental_value": 3900000,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a2a09a5d3b9e331e8a1412"
+  },
+  "car_brand": "BMW",
+  "car_model": "Serie3",
+  "number_doors": 5,
+  "number_bags": 5,
+  "image": "http://localhost:3004/Serie3.jpeg",
+  "scale": "Alta",
+  "rental_value": 4500000,
+  "__v": 0
+}]
