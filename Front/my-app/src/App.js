@@ -15,10 +15,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/home" element={<Home/>}/>
+        <Route exact path="/" element={<Home/>}/>
         <Route
           exact
-          path="/"
+          path="/login"
           element={<Login auth={auth} setAuth={setAuth} />}
         />
         <Route exact path="/admin" element={<CarList authorized={auth} user={user} setAuth={setAuth} />} />

@@ -30,7 +30,7 @@ const CarList = ({authorized, user,setAuth }) => {
     
       useEffect(() => {
             if (!authorized) {
-                navigate("/");
+                navigate("/login");
             }else{
                 const loadCars = async () => {
                 //const data = await(await fetch(`${API_URL}/cars`)).json();

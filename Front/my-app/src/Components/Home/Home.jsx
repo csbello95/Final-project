@@ -4,11 +4,12 @@ import { Card, Button, Form, Col, Row } from "react-bootstrap";
 import Pay from '../Pay';
 import axios from "axios";
 import { API_URL } from '../../Constants';
-
+import { useNavigate } from 'react-router';
 
 import './Home.scss'
 
 const Home = () => {
+    const navigate = useNavigate();
     const [cars, setCars] = useState([]);
     const [price, setPrice] = useState(0);
     const [selectedCar, setSelectedCar] = useState(cars[0]);
@@ -16,6 +17,12 @@ const Home = () => {
         from: 0,
         to: 0,
     });
+
+    const handleAdmin = () => {
+        navigate("/login");
+    }
+
+
     const [payModal, setPayModal] = useState({
         showModal: false,
         rentalData: undefined,
@@ -84,6 +91,10 @@ const Home = () => {
     return (
         <>
             <div className="login-container">
+
+                <button onClick={handleAdmin} className="admin-login">
+                    Entrar como admin
+                </button>
                 <section className="login-titles">
                     <h1>
                         BUGGY &<br /> BUMPER,INC
@@ -180,7 +191,7 @@ const Home = () => {
                             </div>
 
                         </Form>
-                        <Pay payModal={payModal} setPayModal={setPayModal}/>
+                        <Pay payModal={payModal} setPayModal={setPayModal} />
                     </div>
 
                 </section>
